@@ -23,10 +23,10 @@ const k2d = Anek_Tamil({
   variable: "--font-k2d",
 });
 
-const APP_NAME = "Fast Insure";
-const APP_DEFAULT_TITLE = "Lead The Future";
-const APP_TITLE_TEMPLATE = "%s - Lead the Future";
-const APP_DESCRIPTION = "Fastest Growing Fintech in the Philippines";
+const APP_NAME = "Best Deals";
+const APP_DEFAULT_TITLE = "Insurance Provider";
+const APP_TITLE_TEMPLATE = "%s - Insurance Provider";
+const APP_DESCRIPTION = "";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
