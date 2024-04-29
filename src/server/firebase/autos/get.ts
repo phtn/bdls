@@ -14,7 +14,7 @@ import {
 } from "firebase/firestore";
 
 export const getOneAuto = async ({ userId, docId }: GetOneAutoSchema) => {
-  const userRef = doc(db, "users", userId);
+  const userRef = doc(db, "bdls", userId);
   const autosRef = collection(userRef, "autos");
 
   const snapshot = await getDoc(doc(autosRef, docId));
@@ -28,7 +28,7 @@ export const getOneAuto = async ({ userId, docId }: GetOneAutoSchema) => {
 };
 
 export const getAllAuto = async (params: GetAllAutoSchema) => {
-  const userRef = doc(db, "users", params.userId);
+  const userRef = doc(db, "bdls", params.userId);
   const autosRef = collection(userRef, "autos");
 
   return getDocs(autosRef)
@@ -51,7 +51,7 @@ export const getAutoUpdate = async (
   params: GetAllAutoSchema,
   callback: (docs: AutoDataSchema[]) => void,
 ) => {
-  const userRef = doc(db, "users", params.userId);
+  const userRef = doc(db, "bdls", params.userId);
   const autosRef = collection(userRef, "autos");
 
   return onSnapshot(autosRef, (snapshot) => {

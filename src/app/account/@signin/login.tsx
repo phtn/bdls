@@ -1,5 +1,4 @@
 "use client";
-
 import { type AccountType } from "@/server/resource/account";
 import { onError, onInfo, onPromise, onSuccess } from "@/utils/toast";
 import { Form } from "@@ui/form";
@@ -16,7 +15,7 @@ import { type z } from "zod";
 import { type UserSigninType } from "./hooks";
 import { ActiveForm } from "./login-form";
 import { loginDefaults, loginSchema, type LoginSchema } from "./schema";
-import { createUser } from "./serverOnly";
+import { createNewUser } from "@/trpc/account/create-user";
 
 export type UserAccountType = z.infer<typeof AccountType>;
 
@@ -78,7 +77,7 @@ export const Login = ({ signinType, accountType }: LoginProps) => {
     createUserWithEmailAndPassword(email, password)
       .then((creds) => {
         if (creds) {
-          createUser({
+          createNewUser({
             userId: creds.user.uid,
             email: creds.user.email!,
             accountType,

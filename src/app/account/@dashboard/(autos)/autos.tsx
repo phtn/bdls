@@ -40,7 +40,7 @@ export const AutosPage = () => {
   return (
     <div className="outline-none">
       <div className="m-2 flex items-center space-x-4 sm:m-8 lg:m-0">
-        <Title>Autos</Title>
+        <Title>Auto Insurance</Title>
 
         <div className="flex w-[50px] items-center justify-between">
           <TheTip content="Add new auto">

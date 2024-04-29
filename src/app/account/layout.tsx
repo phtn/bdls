@@ -1,10 +1,14 @@
 "use client";
 
-import { auth } from "@/libs/db";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "@/libs/db";
 import Sidebar from "./(components)/sidebar";
 import { Loader } from "./(components)/loader";
-import { useConnect } from "./@dashboard/hooks";
+import { useEffect, useState } from "react";
+import { useDocumentOnce } from "react-firebase-hooks/firestore";
+import { doc } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { type UserAccount } from "@/server/resource/account";
+import { type UserAccountType } from "./@signin/login";
 
 type AccountLayoutProps = {
   dashboard: React.ReactNode;
@@ -12,14 +16,22 @@ type AccountLayoutProps = {
 };
 
 const AccountLayout = ({ dashboard, signin }: AccountLayoutProps) => {
-  const [user, loading] = useAuthState(auth);
-  const { getAccoutType } = useConnect();
-  const accountType = getAccoutType();
-  const isAffiliate = accountType === "AFFILIATE";
+  const [accountType, setAccountType] = useState<UserAccountType>();
+  const [user] = useAuthState(auth);
+  const docRef = doc(db, `bdls/${user?.uid}`);
+  const [snapshot, loading] = useDocumentOnce(docRef);
+
+  useEffect(() => {
+    if (snapshot?.exists) {
+      const profile = snapshot.data() as UserAccount;
+      setAccountType(profile?.accountType);
+    }
+  }, [snapshot]);
+
   if (loading) return <Loader />;
 
   if (user) {
-    return <Sidebar isAffiliate={isAffiliate}>{dashboard}</Sidebar>;
+    return <Sidebar accountType={accountType}>{dashboard}</Sidebar>;
   } else {
     return signin;
   }

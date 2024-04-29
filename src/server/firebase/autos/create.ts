@@ -13,16 +13,16 @@ export const createAuto = async (params: CreateAutoSchema) => {
   };
 
   if (userId) {
-    const docRef = collection(db, `users/${userId}/autos`);
+    const docRef = collection(db, `bdls/${userId}/autos`);
     const files = doc_url
       ? [
-          {
-            name: auto_data.document_type,
-            photoURL: doc_url,
-            created_at: new Date().getTime(),
-            updated_at: new Date().getTime(),
-          },
-        ]
+        {
+          name: auto_data.document_type,
+          photoURL: doc_url,
+          created_at: new Date().getTime(),
+          updated_at: new Date().getTime(),
+        },
+      ]
       : [];
 
     const payload = {

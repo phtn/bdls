@@ -1,5 +1,5 @@
 import { useCallback, type ReactNode } from "react";
-import { SidebarAffiliate, SidebarUser } from "./sidebar-nav";
+import { Nav, SidebarAffiliate, SidebarUser } from "./sidebar-nav";
 import tw from "tailwind-styled-components";
 import { opts } from "@/utils/helpers";
 import { usePathname } from "next/navigation";
@@ -11,16 +11,19 @@ import {
   BreadcrumbSeparator,
 } from "@/app/(ui)/breadcrumb";
 import { Hoverboard } from "@/app/(ui)/hoverboard";
+import { type UserAccountType } from "../@signin/login";
+import { sidebarAffiliate, sidebarUser } from "./sidebar-data";
 
 type SidebarProps = {
   children: ReactNode;
-  isAffiliate: boolean;
+  accountType: UserAccountType | undefined;
 };
-export default function Sidebar({ children, isAffiliate }: SidebarProps) {
+export default function Sidebar({ children, accountType }: SidebarProps) {
   const SidebarOptions = useCallback(() => {
+    const isAffiliate = accountType === "AFFILIATE";
     const options = opts(<SidebarAffiliate />, <SidebarUser />);
     return <>{options.get(isAffiliate)}</>;
-  }, [isAffiliate]);
+  }, [accountType]);
 
   const pathname = usePathname();
 
@@ -32,7 +35,11 @@ export default function Sidebar({ children, isAffiliate }: SidebarProps) {
           <div className="h-full items-center md:block">
             <div className="flex h-full flex-col md:space-x-2 lg:flex-row lg:space-x-6">
               <SidebarNav>
-                <SidebarOptions />
+                <Nav
+                  navGroup={
+                    accountType === "AFFILIATE" ? sidebarAffiliate : sidebarUser
+                  }
+                />
               </SidebarNav>
               <div className="flex-1 space-y-3 px-4 py-[0px] md:px-0">
                 <div className="hidden items-center text-[12px] tracking-tight text-clay/80 lg:flex lg:h-[42px]">
@@ -44,7 +51,7 @@ export default function Sidebar({ children, isAffiliate }: SidebarProps) {
                       <BreadcrumbSeparator />
                       <BreadcrumbItem>
                         <BreadcrumbLink href={pathname} className="capitalize">
-                          {crumb === `account` ? `autos` : crumb}
+                          {crumb === `account` ? `Dashboard` : crumb}
                         </BreadcrumbLink>
                       </BreadcrumbItem>
                     </BreadcrumbList>
@@ -80,7 +87,7 @@ const SidebarNav = ({ children }: SidebarNavProps) => {
 
 const Footer = () => (
   <div className="flex h-[36px] w-screen items-center justify-between border-t-[0.33px] border-ash px-4 text-xs text-clay">
-    <div>Fast Insure Inc &copy; {new Date().getFullYear()}</div>
+    <div>Best Deals &copy; {new Date().getFullYear()}</div>
   </div>
 );
 

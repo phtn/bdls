@@ -7,14 +7,11 @@ export const useAccountTypes = () => {
   const [accountType, setAccount] = useState<UserAccountType>("PERSONAL");
   const [signinType, setSignin] = useState<UserSigninType>("SIGNIN");
 
-  const setAccountType = useCallback(
-    (type: UserAccountType) => {
-      if (type !== accountType) {
-        setAccount((prev) => (prev === "PERSONAL" ? "AFFILIATE" : "PERSONAL"));
-      }
-    },
-    [accountType],
-  );
+  const setAccountType = useCallback((type: UserAccountType) => {
+    if (type) {
+      setAccount(type);
+    }
+  }, []);
 
   const setSigninType = useCallback(
     (type: UserSigninType) => {

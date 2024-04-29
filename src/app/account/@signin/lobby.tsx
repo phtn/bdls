@@ -93,6 +93,22 @@ const PrimaryContent = ({ accountType, setType }: AccountTypeProps) => {
           Affiliate Account
         </div>
       </Touch>
+      <div className="hidden h-[0.33px] w-full bg-ash md:flex" />
+      <Touch
+        icon={!userAccount ? CheckCircle2Icon : Circle}
+        iconFill={!userAccount ? "#fafafa" : undefined}
+        variant={!userAccount ? "secondary" : "default"}
+        className={cn(
+          `w-full text-[14px] md:w-[250px]`,
+          !userAccount ? "shadow-lg shadow-sky-500/60 " : "",
+        )}
+        size={"lg"}
+        onClick={() => setType("BUSINESS")}
+      >
+        <div className="flex w-[150px] justify-start pl-3">
+          Business Account
+        </div>
+      </Touch>
     </div>
   );
 };

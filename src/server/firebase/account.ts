@@ -1,9 +1,9 @@
 import { db } from "@/libs/db";
-import { type NewUserPayload } from "@resource/account";
+import { type UserAccount } from "@resource/account";
 import { type FirebaseError } from "firebase/app";
 import { doc, setDoc } from "firebase/firestore";
 
-export const createUserAccount = async (user: NewUserPayload) => {
+export const createUserAccount = async (user: UserAccount) => {
   const Err = (err: FirebaseError) => {
     return [0, err.code];
   };
@@ -13,7 +13,7 @@ export const createUserAccount = async (user: NewUserPayload) => {
 
   if (user) {
     const { email, userId, accountType } = user;
-    await setDoc(doc(db, "users", userId), {
+    await setDoc(doc(db, "bdls", userId), {
       userId,
       email,
       accountType,

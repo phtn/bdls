@@ -44,6 +44,7 @@ export type IconName =
   | "reader"
   | "email"
   | "mobile"
+  | "phoneNumber"
   | "money"
   | "tokens"
   | "upload"
@@ -61,6 +62,7 @@ export const IconPrefixes: IconPrefix[] = [
   { name: "reader", icon: FileSpreadsheetIcon },
   { name: "email", icon: AtSignIcon },
   { name: "mobile", icon: SmartphoneIcon },
+  { name: "phoneNumber", icon: SmartphoneIcon },
   { name: "money", icon: BanknoteIcon },
   { name: "tokens", icon: CoinsIcon },
   { name: "upload", icon: UploadCloudIcon },

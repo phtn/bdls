@@ -4,7 +4,7 @@ import { cn } from "@/utils/cn";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { type HTMLAttributes } from "react";
-import { sidebarAffiliate, sidebarUser } from "./sidebar-data";
+import { GroupItem, sidebarAffiliate, sidebarUser } from "./sidebar-data";
 import tw from "tailwind-styled-components";
 
 export const SidebarAffiliate = ({
@@ -65,6 +65,55 @@ export const SidebarUser = ({
       {...props}
     >
       {sidebarUser.map((group) => (
+        <div
+          key={group.label}
+          className="flex md:space-x-8 lg:flex-col lg:space-x-0 portrait:space-x-4"
+        >
+          {group.values.map((item) => (
+            <Link key={item.value} href={item.href ?? `#`}>
+              <GroupItem>
+                <IconContainer>
+                  <item.icon
+                    strokeWidth={1}
+                    className={cn(
+                      iconClass,
+                      pathname === item.href ? `text-blue-500` : ``,
+                    )}
+                  />
+                </IconContainer>
+                <ItemContent
+                  className={cn(pathname === item.href ? `text-blue-500` : ``)}
+                >
+                  <p className="w-full">{item.label}</p>
+                </ItemContent>
+              </GroupItem>
+            </Link>
+          ))}
+        </div>
+      ))}
+    </nav>
+  );
+};
+
+type NavProps = {
+  navGroup: GroupItem[];
+};
+export const Nav = (
+  navProps: NavProps,
+  { className, ...props }: HTMLAttributes<HTMLElement>,
+) => {
+  const { navGroup } = navProps;
+  const pathname = usePathname();
+
+  return (
+    <nav
+      className={cn(
+        "flex overflow-x-scroll px-2 md:space-x-8 md:px-24 lg:flex-col lg:space-x-0 lg:space-y-2 lg:px-6 portrait:space-x-4",
+        className,
+      )}
+      {...props}
+    >
+      {navGroup.map((group) => (
         <div
           key={group.label}
           className="flex md:space-x-8 lg:flex-col lg:space-x-0 portrait:space-x-4"

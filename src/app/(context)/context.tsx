@@ -5,7 +5,10 @@ import { type User } from "firebase/auth";
 import { type DocumentData, doc } from "firebase/firestore";
 import { createContext, useState, type ReactNode, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import {
+  useDocumentData,
+  useDocumentOnce,
+} from "react-firebase-hooks/firestore";
 
 type ProfileDocumentData = DocumentData | undefined;
 
@@ -23,16 +26,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userId, setUserId] = useState<UID>();
   const [profile, setProfile] = useState<ProfileDocumentData>();
 
-  const userRef = doc(db, `users`, `${userId}`);
-  const [snapshot] = useDocumentData(userRef, {
-    snapshotListenOptions: { includeMetadataChanges: true },
-  });
+  const userRef = doc(db, `bdls/${user?.uid}`);
+  const [snapshot] = useDocumentOnce(userRef);
 
   useEffect(() => {
     if (user?.uid) {
       setUserId(user.uid);
-      if (snapshot) {
-        setProfile(snapshot);
+      if (snapshot?.exists) {
+        setProfile(snapshot.data());
       }
     }
   }, [user?.uid, snapshot]);

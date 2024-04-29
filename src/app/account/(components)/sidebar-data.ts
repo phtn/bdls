@@ -6,7 +6,6 @@ import {
   FileSpreadsheetIcon,
   CarIcon,
   SproutIcon,
-  PlaneTakeoffIcon,
 } from "lucide-react";
 
 export interface GroupItemValue {
@@ -28,14 +27,14 @@ export const sidebarAffiliate: GroupItem[] = [
     values: [
       {
         label: "Dashboard",
-        desc: "Account overview",
+        desc: "Overview",
         value: "0",
         icon: LayoutDashboardIcon,
         href: "/account",
       },
       {
-        label: "Agents",
-        desc: "Agent Management",
+        label: "Accounts",
+        desc: "Database",
         value: "1",
         icon: Users2Icon,
         href: "/account/agents",
@@ -82,11 +81,11 @@ export const sidebarUser: GroupItem[] = [
         href: "/account/life",
       },
       {
-        label: "Travel",
-        desc: "Travel Insurance Management",
+        label: "PA",
+        desc: "Personal Accident Insurance Management",
         value: "2",
-        icon: PlaneTakeoffIcon,
-        href: "/account/travel",
+        icon: Users2Icon,
+        href: "/account/pa",
       },
     ],
   },
